@@ -8,7 +8,7 @@ const logger = log4js.getLogger('cheese');
 var watchman = require('fb-watchman');
 var client = new watchman.Client();
 
-var dir_of_interest = "D:\\hihi\\";//G:\\我的雲端硬碟\\igphoto
+var dir_of_interest = "G:\\我的雲端硬碟\\igphoto";//G:\\我的雲端硬碟\\igphoto
 
 client.capabilityCheck({optional:[]},
   function (error, resp) {
