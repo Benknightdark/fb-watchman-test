@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fb-watchman": "^2.0.1"
+    "fb-watchman": "^2.0.1",
+    "log-to-file": "^2.0.2",
+    "nodemon": "^2.0.2"
   }
 }

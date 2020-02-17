@@ -1,9 +1,10 @@
 var watchman = require('fb-watchman');
 var client = new watchman.Client();
+const log = require('log-to-file');
 
-var dir_of_interest = "D:\\hihi\\";
+var dir_of_interest = "G:\\我的雲端硬碟\\igphoto";
 
-client.capabilityCheck({optional:[], required:['relative_root']},
+client.capabilityCheck({optional:[]},
   function (error, resp) {
     if (error) {
       console.log(error);
@@ -44,7 +45,7 @@ client.capabilityCheck({optional:[], required:['relative_root']},
 function make_subscription(client, watch, relative_path) {
   sub = {
     // Match any `.js` file in the dir_of_interest
-    expression: ["allof", ["match", "*.js"]],
+   // expression: ["allof", ["match", "*.js"]],
     // Which fields we're interested in
     fields: ["name", "size", "mtime_ms", "exists", "type"]
   };
@@ -75,13 +76,18 @@ function make_subscription(client, watch, relative_path) {
   //       exists: true,
   //       type: 'f' } ] }
   client.on('subscription', function (resp) {
+    console.log(resp)
     if (resp.subscription !== 'mysubscription') return;
 
     resp.files.forEach(function (file) {
       // convert Int64 instance to javascript integer
       const mtime_ms = +file.mtime_ms;
+      console.log(file);
+      let logString=`${file.type==='d'?'資料夾':'檔案'} =>${file.name}(${file.exists?'修改':'刪除'} - ${mtime_ms})`
+      console.log( logString);
+      log(logString);
 
-      console.log('file changed: ' + file.name, mtime_ms);
+      console.log('----------------------------------------');
     });
   });
 }
