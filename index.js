@@ -1,8 +1,14 @@
+
+const log4js = require('log4js');
+log4js.configure({
+  appenders: { logs: { type: 'file', filename: 'logs.log' } },
+  categories: { default: { appenders: ['logs'], level: 'info' } }
+});
+const logger = log4js.getLogger('cheese');
 var watchman = require('fb-watchman');
 var client = new watchman.Client();
-const log = require('log-to-file');
 
-var dir_of_interest = "G:\\我的雲端硬碟\\igphoto";
+var dir_of_interest = "D:\\hihi\\";//G:\\我的雲端硬碟\\igphoto
 
 client.capabilityCheck({optional:[]},
   function (error, resp) {
@@ -79,14 +85,13 @@ function make_subscription(client, watch, relative_path) {
     console.log(resp)
     if (resp.subscription !== 'mysubscription') return;
 
-    resp.files.forEach(function (file) {
+    resp.files.forEach(async function (file) {
       // convert Int64 instance to javascript integer
       const mtime_ms = +file.mtime_ms;
       console.log(file);
       let logString=`${file.type==='d'?'資料夾':'檔案'} =>${file.name}(${file.exists?'修改':'刪除'} - ${mtime_ms})`
       console.log( logString);
-      log(logString);
-
+      logger.info(logString);
       console.log('----------------------------------------');
     });
   });
