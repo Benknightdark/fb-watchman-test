@@ -12,7 +12,7 @@
     "fb-watchman": "^2.0.1",
     "filelogs": "^1.0.12",
     "log-to-file": "^2.0.2",
-    "log4js": "^6.1.2",
+    "log4js": "^6.4.0",
     "nodemon": "^2.0.2"
   }
 }
